@@ -45,3 +45,21 @@
 ![image](./images/manual_08.png)
 
 点击electron.exe可以看到应用启动了。
+
+### 第三步：使用下载好的可执行文件进行重新定制
+
+将您的应用程序捆绑到Electron后，您可能需要在把应用分发给用户前将Electron进行重新定制
+
+Windows: 您可以将electon.exe重命名为您喜欢的任何名称，也可以通过rcedit编辑其图标和其他信息。
+
+Linux： 您可以将 electron 可执行文件重命名为您喜欢的任何名称。
+
+macOS： 您可以将 Electron.app 重命名为所需的任何名称，并且还必须 以下 文件中的 CFBundleDisplayName， CFBundleIdentifier 和 CFBundleName 字段重命名：
+
+Electron.app/Contents/Info.plist
+Electron.app/Contents/Frameworks/Electron Helper.app/Contents/Info.plist
+你也可以重命名帮助程序以避免它在系统活动监视器中显示为Electron Helper， 但是请确保你已经修改了帮助应用的可执行文件的名字。
+
+一个重命名后的应用程序的结构可能是这样的
+
+#### window定制
