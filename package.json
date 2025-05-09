@@ -1,0 +1,11 @@
+{
+  "name": "electron-build-tutorial",
+  "version": "1.0.0",
+  "description": "本项目用于研究学习使用Electron Forge和Electron Builder对Electron应用打包构建、以及结合Github action做自动化部署",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lzc",
+  "license": "ISC"
+}
