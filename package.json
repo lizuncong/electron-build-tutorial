@@ -4,12 +4,26 @@
   "description": "本项目用于研究学习使用Electron Forge和Electron Builder对Electron应用打包构建、以及结合Github action做自动化部署",
   "main": "src/main/index.js",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron-forge start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "lzc",
   "license": "ISC",
   "devDependencies": {
+    "@electron-forge/cli": "^7.8.0",
+    "@electron-forge/maker-deb": "^7.8.0",
+    "@electron-forge/maker-rpm": "^7.8.0",
+    "@electron-forge/maker-squirrel": "^7.8.0",
+    "@electron-forge/maker-zip": "^7.8.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.8.0",
+    "@electron-forge/plugin-fuses": "^7.8.0",
+    "@electron/fuses": "^1.8.0",
+    "asar": "^3.2.0",
     "electron": "^36.2.0"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.1"
   }
 }
