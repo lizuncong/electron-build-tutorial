@@ -40,6 +40,10 @@
 
 ![image](./images/manual_11.jpg)
 
+如果仔细观察，我们通过npm install electron后，会在node_modules里安装了一个electron，electron/dist就是我们解压zip后的内容，两者是一致的：
+
+![image](./images/manual_17.jpg)
+
 在包内容中的Contents/Resources/目录下新建一个app文件夹，存放我们的源代码：
 
 ![image](./images/manual_10.jpg)
