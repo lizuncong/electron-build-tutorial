@@ -16,8 +16,10 @@ jobs:
         arch: ['x64', 'arm64']
     steps:
     - uses: actions/checkout@v4
-    - name: Install and Build
-      run: npm install && npm run make
+    - name: Install dependencies
+      run: npm install
+    - name: publish
+      run: npm run publish --platform=${{ matrix.os }} --arch=${{ matrix.arch }} --targets=all
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         ELECTRON_ARCH: ${{ matrix.arch }} 
