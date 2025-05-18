@@ -5,7 +5,18 @@ module.exports = {
   packagerConfig: {
     asar: true,
     name: '录屏大师',
-    icon: './logo'
+    icon: './logo',
+    arch: ['x64', 'arm64'],
+    // target: [
+    //   {
+    //     target: 'dmg', // 用于生成 macOS 的 .dmg 安装包
+    //     arch: ['x64', 'arm64']
+    //   },
+    //   {
+    //     target: 'zip', // 用于生成 macOS 的 .zip 包
+    //     arch: ['x64', 'arm64']
+    //   }
+    // ]
   },
   rebuildConfig: {},
   makers: [
