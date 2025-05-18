@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Install and Build
-      run: npm install && npm run publish
+      run: npm install && npm run make
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         ELECTRON_ARCH: ${{ matrix.arch }} 
