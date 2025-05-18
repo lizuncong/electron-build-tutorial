@@ -20,7 +20,7 @@ jobs:
       run: npm install
     - name: publish
       run: |
-          npx electron-forge publish --platform=${{ matrix.os }} --arch=${{ matrix.arch }} --targets=all
+          npx electron-forge publish --arch=${{ matrix.arch }} --targets=all
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         ELECTRON_ARCH: ${{ matrix.arch }} 
