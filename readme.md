@@ -13,4 +13,4 @@
 - [Electron Forge和Electron Builder的对比分析](./docs/forge和builder的对比.md)
 - [使用Electron Builder打包应用](./docs/使用electron%20build打包应用.md)
 - [使用Electron Forge打包应用](./docs/使用electron%20forge打包应用.md)
-- [Electron打包后的文件分析](./docs/electron打包后的文件分析.md)
+- [手动打包electron应用](./docs/手动打包electron应用.md)

@@ -1,0 +1,21 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - feature/forge
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install and Build
+      run: npm install && npm run publish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
