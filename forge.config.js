@@ -5,6 +5,7 @@ module.exports = {
   packagerConfig: {
     asar: true,
     name: '录屏大师',
+    icon: './logo'
   },
   rebuildConfig: {},
   makers: [
@@ -17,6 +18,13 @@ module.exports = {
       platforms: ['darwin'],
     },
     {
+      name: '@electron-forge/maker-dmg',
+      config: {
+        background: './dmg-bg.jpg',
+        format: 'ULFO'
+      }
+    },
+    {
       name: '@electron-forge/maker-deb',
       config: {},
     },
@@ -24,6 +32,20 @@ module.exports = {
       name: '@electron-forge/maker-rpm',
       config: {},
     },
+  ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          owner: 'lizuncong',
+          name: 'electron-build-tutorial'
+        },
+        draft: true,
+        prerelease: false,
+        generateReleaseNotes: true
+      }
+    }
   ],
   plugins: [
     {
