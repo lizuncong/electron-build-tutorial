@@ -1,11 +1,11 @@
 ## 手动打包electron应用
-如果您更喜欢手动操作，有两种方法可以分发应用程序：
+在这篇文章中，我们将脱离Electron常用的打包工具，比如electron forge或者electron build，尝试自己手动打包Electron应用并重命名应用名字。
 
-- 使用预构建可执行文件
-- 应用程序源代码存档
+我们使`Electron 预构建可执行文件`一步一步打包我们的应用，并且使用asar将我们的应用程序源代码存档。最后我们可以简单的了解一下Electron Package的打包原理及过程。
 
-### 一、使用预构建可执行文件
-去electron的[Github Release](https://github.com/electron/electron/releases)下载预构建可执行文件。
+
+### 一、使用Electron预构建可执行文件
+首先去electron的[Github Release](https://github.com/electron/electron/releases)下载预构建可执行文件。这里可以根据自己电脑的系统配置下载对应的版本即可。下载下来的Electron就是一个可以直接启动的app。如果是window，可以直接点击electron.exe启动应用。如果是Mac，可以直接点击Electron.app启动应用。默认的Electron应用源码入口resources/default_app.asar。如果需要Electron启动的是我们自己的应用，那么可以直接在resources目录下新建一个app目录，将我们的应用源码比如src和package.json放进app目录下面即可。或者将src和package.json打包成app.asar，将打包的asar放到resources/下面即可。这样点击electron.exe或者Electron.app启动的就是我们的应用了。下面会简单介绍window系统和mac系统的源码替换过程。
 
 #### 1.1 window系统
 如果电脑是window系统
@@ -40,9 +40,6 @@
 
 ![image](./images/manual_11.jpg)
 
-如果仔细观察，我们通过npm install electron后，会在node_modules里安装了一个electron，electron/dist就是我们解压zip后的内容，两者是一致的：
-
-![image](./images/manual_17.jpg)
 
 在包内容中的Contents/Resources/目录下新建一个app文件夹，存放我们的源代码：
 
@@ -52,10 +49,10 @@
 
 ![image](./images/manual_12.jpg)
 
-### 二、打包应用源码
+### 二、将我们的应用源码打包成asar
 如果你没有使用 Parcel 或 Webpack 之类的构建工具，为了减轻拷贝源文件的分发压力，你可以把你的 app 打包成一个 asar 包来提升在 Windows 等平台上读取文件的性能。
 
-为了使用一个 asar 档案文件代替 app 文件夹，你需要修改这个档案文件的名字为 app.asar ， 然后将其放到 Electron 的资源文件夹下，然后 Electron 就会试图读取这个档案文件并从中启动。
+为了使用一个 asar 档案文件代替 app 文件夹，需要将app打包为app.asar，然后将其放到 Electron 的Resources资源文件夹下，然后 Electron 就会试图读取这个app.asar档案文件并从中启动。
 
 首先运行 `npm install --engine-strict @electron/asar` 安装[asar](https://github.com/electron/asar)
 
@@ -84,10 +81,11 @@
 ![image](./images/manual_13.jpg)
 
 
-### 三、使用下载好的可执行文件进行重新定制
+>以上，我们使用Electron预构建文件来启动我们的应用，并且将应用源码打包成app.asar。接下来我们来了解一下如何重命名我们的应用。
 
-将您的应用程序捆绑到Electron后，您可能需要在把应用分发给用户前将Electron进行重新定制
+### 三、重命名、如何定制我们的应用
 
+当我们使用Electron构建我们的应用程序后，我们还需要在把应用分发给用户前，将Electron应用进行重新定制。
 
 #### 3.1 window定制
 您可以将electon.exe重命名为您喜欢的任何名称，也可以通过rcedit编辑其图标和其他信息。
@@ -106,8 +104,93 @@
 
 ![image](./images/manual_15.jpg)
 
-同时还必须将以下文件中的CFBundleDisplayName，CFBundleIdentifier 和 CFBundleName 字段重命名：
-- Electron.app/Contents/Info.plist
+
+修改Electron.app/Contents/Info.plist下面几个字段：
+```xml
+<key>CFBundleDisplayName</key>
+<string>录屏大帝</string>
+<key>CFBundleExecutable</key>
+<string>录屏大帝</string>
+<key>CFBundleName</key>
+<string>录屏大帝</string>
+```
 
 
-![image](./images/manual_16.jpg)
+将Electron.app/Contents/MacOS/Electron重命名为Electron.app/Contents/MacOS/录屏大帝
+
+同时还要将Electron.app/Contents/Frameworks/Electron Helper.app、Electron.app/Contents/Frameworks/Electron Helper (GPU).app、Electron.app/Contents/Frameworks/Electron Helper (Renderer).app这三个app文件重命名为
+
+- Electron.app/Contents/Frameworks/录屏大帝 Helper.app
+- Electron.app/Contents/Frameworks/录屏大帝 Helper (GPU).app
+- Electron.app/Contents/Frameworks/录屏大帝 Helper (Renderer).app
+
+同时还要重新命名上面三个.app文件包内容里面的MacOS/Electron Helper、MacOS/Electron Helper (GPU)、MacOS/Electron Helper (Renderer)。并且修改相应的info.plist
+
+Electron.app/Contents/Frameworks/录屏大帝 Helper.app/Contents/info.plist:
+
+```xml
+<key>CFBundleName</key>
+<string>录屏大帝</string>
+<key>CFBundleDisplayName</key>
+<string>录屏大帝 Helper</string>
+<key>CFBundleExecutable</key>
+<string>录屏大帝 Helper</string>
+```
+
+
+Electron.app/Contents/Frameworks/录屏大帝 Helper (GPU).app/Contents/info.plist:
+```xml
+<key>CFBundleName</key>
+<string>录屏大帝 Helper (GPU)</string>
+<key>CFBundleDisplayName</key>
+<string>录屏大帝 Helper (GPU)</string>
+<key>CFBundleExecutable</key>
+<string>录屏大帝 Helper (GPU)</string>
+```
+
+Electron.app/Contents/Frameworks/录屏大帝 Helper (Renderer).app/Contents/info.plist:
+```xml
+<key>CFBundleName</key>
+<string>录屏大帝 Helper (Renderer)</string>
+<key>CFBundleDisplayName</key>
+<string>录屏大帝 Helper (Renderer)</string>
+<key>CFBundleExecutable</key>
+<string>录屏大帝 Helper (Renderer)</string>
+```
+
+最终的目录结构如下：
+
+![image](./images/manual_19.jpg)
+
+
+点击`录屏大帝.app`启动我们的应用，可以发现应用名字、进程名字也已经被重命名了。
+
+![image](./images/manual_20.jpg)
+
+
+
+### 四、Electron Package打包过程
+如果阅读@electron/packager的源码可以发现，
+
+在[src/platform.ts](https://github.com/electron/packager/blob/main/src/platform.ts)文件中，将我们的源代码打包成app.asar。
+
+![image](./images/manual_22.jpg)
+
+在[src/mac.ts](https://github.com/electron/packager/blob/main/src/mac.ts)文件中，定制我们的应用，比如重命名应用名称，应用图标等。
+
+
+![image](./images/manual_21.jpg)
+
+
+实际上做的就是我们前面手动打包的过程。
+
+
+### npm install electron安装的是什么
+
+如果仔细观察，我们通过npm install electron后，会在node_modules里安装了一个electron，而这个electron就是我们前面从electron github release下载的文件。
+
+electron/dist就是我们解压zip后的内容，两者是一致的：
+
+![image](./images/manual_17.jpg)
+
+所以当我们使用electron forge或者electron build等打包工具打包时，这些工具会自动从node modules/electron中复制一个electron可执行文件出来，然后将我们src下面的源码和package.json一起打包成app.asar，放到复制出来的electron的资源文件Resources目录下，并重命名。这就是打包工具的原理。
