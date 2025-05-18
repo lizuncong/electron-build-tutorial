@@ -111,3 +111,31 @@ publish命令会先运行package、make命令将应用程序进行打包、制�
 这里，我是永久设置的：
 
 ![image](./images/forge_03.jpg)
+
+
+
+## Github Action流水线
+新建./github/workflows/forge-build.yml：
+```yml
+name: Release
+
+on:
+  push:
+    branches:
+      - feature/forge
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install and Build
+      run: npm install && npm run publish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+```
