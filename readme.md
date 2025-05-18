@@ -7,6 +7,7 @@
 
 ## 分支及用途
 - feature/manual-build。学习手动打包Electron应用
+- feature/forge。学习使用forge打包Electron应用
 
 ## 文档
 - [Electron Forge和Electron Builder的对比分析](./docs/forge和builder的对比.md)
