@@ -22,4 +22,3 @@ jobs:
       run: npx electron-forge publish --arch=${{ matrix.arch }} 
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        ELECTRON_ARCH: ${{ matrix.arch }} 
