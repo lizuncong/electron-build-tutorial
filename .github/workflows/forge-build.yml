@@ -19,7 +19,7 @@ jobs:
     - name: Install dependencies
       run: npm install
     - name: Build and Publish
-      run: npx electron-forge publish --arch=arm64
+      run: npx electron-forge publish --arch=x64
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         ELECTRON_ARCH: ${{ matrix.arch }} 
